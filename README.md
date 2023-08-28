@@ -1,6 +1,6 @@
 # **Blog Application API Backend**
 
-## Tech and Tools
+## Technologies and Tools
 
 **Server:** JavaScript, Nodejs, Expressjs, MongoDB, Mongoose, JWT, Postman, VS Code, MongoDB Atlas/Compass
 
@@ -32,16 +32,16 @@
 
 - [API Authentication](#API-Authentication)
 
-  - [ Register a new API client](#Register-a-new-API-client)
-  - [ login](#User-Login)
+  - [ Register as a new User](#Register-as-a-new--User)
+  - [ Login](#User-Login)
 
 - [Users](#api)
 
-  - [Get my profile](#get-my-profile)
   - [Get all users](#Get-all-users)
-  - [View a user profile Count](#view-a-user-profile)
+  - [Get single user profile](#Get-my-profile)
+  - [View a user profile Count](#View-a-user-profile)
   - [Following a user](#Following-a-user)
-  - [#UnFollowing-a-user](#UnFollowing-a-user)
+  - [UnFollowing-a-user](#UnFollowing-a-user)
   - [Update user password](#Update-user-password)
   - [Update your profile](#Update-your-profile)
   - [Block another user](#Block-user)
@@ -51,13 +51,19 @@
   - [Delete your account](#Delete-your-account)
   - [Upload Profile Photo](#Upload-Profile-Photo)
 
-- [Posts](#Posts-API-Refeference)
+- [Categories](#Category-Api-Reference)
+  - [Create New Category](#Create-New-Category)
+  - [Get All Categories](#Get-All-Categories)
+  - [Get Single Category](#Get-Single-Category)
+  - [Update Category](#Update-Category)
+  - [Delete Category](#Delete-Category)
+- [Posts](#Posts-API-Reference)
 
-  - [Create Post](#Create-Post)
+  - [Create New Post](#Create-Post)
   - [Get All Posts](#Get-All-Posts)
   - [Get Single Post](#Get-Single-Post)
-  - [Toggle Post like](#Toggle-Post-like)
-  - [Toggle Post dislike](#Toggle-Post-dislike)
+  - [User Likes Post](#Toggle-Post-like)
+  - [User disLikes Post](#Toggle-Post-dislike)
   - [Update Post](#Update-Post)
   - [Delete Post](#Delete-Post)
 
@@ -98,7 +104,7 @@ To run this project, you will need to add the following environment variables to
 
 `MONGODB_URL`
 
-##### baseURL = `https://blog-api-v3-inovotek.onrender.com/`
+##### baseURL = `http://localhost:PORTnumber/`
 
 # API Authentication
 
@@ -108,9 +114,9 @@ The endpoints that require authentication expect a bearer token sent in the `Aut
 
 **Example**:
 
-`Authorization: Bearer YOUR TOKEN`
+`Authorization: Bearer YOUR-TOKEN`
 
-## Register a new API client
+## Register as a new User
 
 ```http
 POST /api/v1/users/register
@@ -141,7 +147,7 @@ Example request body:
 }
 ```
 
-## **get my profile**
+## **Get my profile**
 
 ```http
 GET /api/v1/users/profile
@@ -161,7 +167,7 @@ GET /api/v1/users/users
 | :--------------- | :------- | :---------- | :------- |
 | `authentication` | `string` | Your token  | no       |
 
-## **view a user profile**
+## **View a user profile**
 
 ```http
 GET /api/v1/users/profile-viewers/:id
@@ -175,7 +181,7 @@ GET /api/v1/users/profile-viewers/:id
 #### **Following a user**
 
 ```http
-GET /api/v1/users/following/:id
+GET /api/v1/users/following-user/:id
 ```
 
 | Parameter        | Type     | Description                       | Required |
@@ -186,7 +192,7 @@ GET /api/v1/users/following/:id
 ## **UnFollowing a user**
 
 ```http
-GET /api/v1/users/unfollowing/:id
+GET /api/v1/users/unfollowing-user/:id
 ```
 
 | Parameter        | Type     | Description                       | Required |
@@ -216,7 +222,7 @@ Example request body:
 ## **Update your profile**
 
 ```http
-PUT /api/v1/users
+PUT /api/v1/users/update-user
 ```
 
 | Parameter        | Type     | Description          | Required |
@@ -239,7 +245,7 @@ Example request body:
 ## **Block another user**
 
 ```http
-PUT /api/v1/users/block/:id
+PUT /api/v1/users/block-user/:id
 ```
 
 | Parameter        | Type     | Description                      | Required |
@@ -250,7 +256,7 @@ PUT /api/v1/users/block/:id
 ## **Unblock user**
 
 ```http
-PUT /api/v1/users/unblock/:id
+PUT /api/v1/users/unblock-user/:id
 ```
 
 | Parameter        | Type     | Description                        | Required |
@@ -261,7 +267,7 @@ PUT /api/v1/users/unblock/:id
 ## **Admin blocking a user**
 
 ```http
-PUT /api/v1/users/admin-block/:id
+PUT /api/v1/users/admin-block-user/:id
 ```
 
 | Parameter        | Type     | Description                      | Required |
@@ -272,7 +278,7 @@ PUT /api/v1/users/admin-block/:id
 ## **Admin unblocking a user**
 
 ```http
-PUT /api/v1/users/admin-unblock/:id
+PUT /api/v1/users/admin-unblock-user/:id
 ```
 
 | Parameter        | Type     | Description                        | Required |
@@ -283,7 +289,7 @@ PUT /api/v1/users/admin-unblock/:id
 ## **Delete your account**
 
 ```http
-  DELETE /api/v1/users/delete-account
+  DELETE /api/v1/users/delete-user
 ```
 
 | Parameter        | Type     | Description | Required |
@@ -301,7 +307,80 @@ PUT /api/v1/users/admin-unblock/:id
 | `authentication` | `string` | Your token      | yes      |
 | `profilePhoto`   | `string` | Image to upload | yes      |
 
-# **Posts API Refeference**
+# **Category Api Reference**
+
+## **Create New Category**
+
+```http
+  POST /api/v1/categories
+```
+
+| Parameter        | Type     | Description    | Required |
+| :--------------- | :------- | :------------- | :------- |
+| `authentication` | `string` | Your token     | yes      |
+| `title`          | `string` | Category title | yes      |
+
+Example request body:
+
+```javascript
+{
+  "title":"value",
+}
+```
+
+## **Get All Categories**
+
+```http
+  GET /api/v1/Categories
+```
+
+| Parameter        | Type     | Description | Required |
+| :--------------- | :------- | :---------- | :------- |
+| `authentication` | `string` | Your token  | no       |
+
+## **Get Single Category**
+
+```http
+  GET /api/v1/Categories/:id
+```
+
+| Parameter        | Type     | Description        | Required |
+| :--------------- | :------- | :----------------- | :------- |
+| `authentication` | `string` | Your token         | yes      |
+| `id`             | `string` | ID of the Category | yes      |
+
+## **Update Category**
+
+```http
+  PUT /api/v1/Categories/:id
+```
+
+| Parameter        | Type     | Description        | Required |
+| :--------------- | :------- | :----------------- | :------- |
+| `authentication` | `string` | Your token         | yes      |
+| `id`             | `string` | ID of the Category | yes      |
+| `title`          | `string` | title of the post  | yes      |
+
+Example request body:
+
+```javascript
+{
+  "title":"value",
+}
+```
+
+## **Delete Category**
+
+```http
+  DELETE /api/v1/Categories/:id
+```
+
+| Parameter        | Type     | Description        | Required |
+| :--------------- | :------- | :----------------- | :------- |
+| `authentication` | `string` | Your token         | yes      |
+| `id`             | `string` | ID of the category | yes      |
+
+# **Posts API Reference**
 
 ## **Create Post**
 
@@ -352,7 +431,7 @@ Example request body:
 ## **Toggle Post like**
 
 ```http
-  GET /api/v1/postslikes/:id
+  GET /api/v1/likes-posts/:id
 ```
 
 | Parameter        | Type     | Description    | Required |
@@ -363,7 +442,7 @@ Example request body:
 ## **Toggle Post dislike**
 
 ```http
-  GET /api/v1/posts/dislikes/:id
+  GET /api/v1/posts/dislikes-posts/:id
 ```
 
 | Parameter        | Type     | Description    | Required |
@@ -374,7 +453,7 @@ Example request body:
 ## **Update Post**
 
 ```http
-  PUT /api/v1/posts/:id
+  PUT /api/v1/posts/update-post/:id
 ```
 
 | Parameter        | Type     | Description             | Required |
@@ -400,7 +479,7 @@ Example request body:
 ## **Delete Post**
 
 ```http
-  GET /api/v1/posts/dislikes/:id
+  DELETE /api/v1/posts/delete-post/:id
 ```
 
 | Parameter        | Type     | Description    | Required |
@@ -413,7 +492,7 @@ Example request body:
 ## **Create Comment**
 
 ```http
-  POST /api/v1/comments/:id
+  POST /api/v1/comments/delete-comment/:id
 ```
 
 | Parameter        | Type     | Description    | Required |
@@ -424,7 +503,7 @@ Example request body:
 ## **Delete Comment**
 
 ```http
-  DELETE /api/v1/comments/:id
+  DELETE /api/v1/comments/update-comment/:id
 ```
 
 | Parameter        | Type     | Description       | Required |
@@ -443,20 +522,6 @@ Example request body:
 | `authentication` | `string` | Your token     | yes      |
 | `id`             | `string` | ID of the post | yes      |
 
+## Author
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- [Taimoor Mumtaz](https://github.com/taimoor0)
